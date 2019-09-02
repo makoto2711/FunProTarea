@@ -1,0 +1,233 @@
+#include <iostream>
+#include <cstring>
+#include "windows.h"
+#include <stdlib.h>
+#include <fstream>
+
+
+using namespace std;
+
+string nombreArchivo; // Nombre del archivo de texto
+ofstream archivo;  // declaracion de la Variable archivo para que funcione el envio de texto xd
+
+int op,i, identidad=0;
+
+void ultimo();
+
+void cond()  //Cond es Condicion
+{
+		if (op==1 || op==2 || op==3 || op==4 || op==5)
+		{
+			system("cls");
+		}
+		else
+		{
+		
+			do
+			{
+			
+				system("cls");
+				cout<<endl<<endl;
+				cout<<"\t    *******************  "<<endl;
+				cout<<"\t    *    E R R O R    *  "<<endl;
+				cout<<"\t    *******************  "<<endl;
+				cout<<endl<<endl<<endl;
+				
+				cout<<"  1) REGISTRO "<<endl;  		 cout<<"  2) MOSTRAR DATOS DEL REGISTRO"<<endl;
+				cout<<"  3) BUSCAR POR DNI"<<endl; 	 cout<<"  4) ELIMINAR VENDEDEOR"<<endl;	
+				cout<<"  5) FINALIZAR     ";  cin>>op;
+			
+			}while(op<1 || op>5);
+			if (op==1 || op==2 || op==3 || op==4 || op==5)
+			{
+				system("cls");
+			}
+			
+		}
+}
+
+
+void menu()
+{
+
+			cout<<endl<<endl;
+			cout<<"\t    ************************  "<<endl;
+			cout<<"\t    *  B I E N V E N I D O *  "<<endl;
+			cout<<"\t    ************************  "<<endl;
+			cout<<endl<<endl<<endl;
+			
+			cout<<"  1) REGISTRO "<<endl;  cout<<"  2) MOSTRAR DATOS DEL REGISTRO"<<endl;
+			cout<<"  3) BUSCAR POR DNI"<<endl; 	 cout<<"  4) ELIMINAR VENDEDEOR"<<endl;	
+			cout<<"  5) FINALIZAR     ";  cin>>op;
+				
+				
+			
+			cond();
+}
+
+void cuerpo()
+{
+	
+	SetConsoleCP(1252);
+	SetConsoleOutputCP(1252);
+	int cantVendedores=100,m;
+	
+	struct vendedor
+	{
+			string nombre;
+			string apellidos;
+			string genero;
+			string Ecivil;
+			string dire;
+			int edad;
+			int dni;		
+	}arrVendedores[cantVendedores];  //ESTRUCTURA
+	
+	
+	do
+	{
+		menu(); 
+	
+	switch (op)
+			{
+						case 1: cout<<endl<<"  Ingrese la cantidad de Vendedor/es a registrar:  "; cin>> cantVendedores;
+								cout<<endl<<endl;
+								cin.ignore();
+								
+								cout<<endl<<endl<<"  Digite el nombre del archivo: "; // 
+								getline(cin,nombreArchivo);
+	
+								archivo.open(nombreArchivo.c_str(),ios::out); //Creamos el archivo
+																
+											
+								cout<<endl<<"             INGRESE LA INFORMACION DEL VENDEDOR  "<<endl<<endl<<endl;
+				
+				
+								for	( i=0; i<cantVendedores;i++)
+								{
+								
+									cout<<endl<<endl<<"   VENDEDOR Nro  "<<i+1<<endl;
+									cout<<endl<<"   Ingrese su Nombre: ";
+									getline(cin,arrVendedores[i].nombre);
+									archivo<<endl<<"  ****************************  ";
+									archivo<<endl<<"  * Nombre: "<<arrVendedores[i].nombre<<endl;
+									
+									cout<<endl<<"   Ingrese su Apellido: ";
+									getline(cin,arrVendedores[i].apellidos);
+									archivo<<endl<<"  * Apellido: "<<arrVendedores[i].apellidos<<endl;
+									
+									cout<<endl<<"   Ingrese su Edad: ";
+									cin>>arrVendedores[i].edad;  	
+									archivo<<endl<<"  * Edad: "<<arrVendedores[i].edad<<endl;
+										cin.ignore();
+									
+									cout<<endl<<"   Ingrese su Genero: ";
+									getline(cin,arrVendedores[i].genero);
+									archivo<<endl<<"  * Genero: "<<arrVendedores[i].genero<<endl; 	
+									
+									cout<<endl<<"   Ingrese su Estado Civil: "; 
+									getline(cin,arrVendedores[i].Ecivil);
+									archivo<<endl<<"  * Estado Civil: "<<arrVendedores[i].Ecivil<<endl; 
+									
+									cout<<endl<<"   Ingrese su Direccion: ";
+									getline(cin,arrVendedores[i].dire);
+									archivo<<endl<<"  * Direccion: "<<arrVendedores[i].dire<<endl;   //direccion 
+								
+									cout<<endl<<"   Ingrese su DNI: "; 
+									cin>>arrVendedores[i].dni;
+									cout<<endl<<"   ********************************** ";
+									archivo<<endl<<"  * DNI: "<<arrVendedores[i].dni;
+									archivo<<endl<<"  ****************************  "<<endl<<endl;
+									cin.ignore();
+									
+								}
+								
+					archivo.close(); //Cerramos el archivo	
+					
+							cout<<endl<<endl<<"   Regresar al menu (1):  ";  cin>>m;
+							if (m==1)
+							{ 	system("cls"); menu();	}
+							 cout<<"  ";break;
+				
+					
+						case 2:  	
+												cout<<endl<<endl<<endl;
+												cout<<"   *** REPORTE DE ALUMNOS ***   ";
+												cout<<endl<<endl;
+												for( i=0; i<cantVendedores; i++)	
+												{
+														 cout<<endl;
+														 cout<<endl<<"   Nombre:  "<<arrVendedores[i].nombre<<endl;
+														 cout<<endl<<"   Apellido:  "<<arrVendedores[i].apellidos<<endl;
+														 cout<<endl<<"   Edad:  "<<arrVendedores[i].edad<<endl;
+														 cout<<endl<<"   Genero:  "<<arrVendedores[i].genero<<endl;
+														 cout<<endl<<"   Estado Civil:  "<<arrVendedores[i].Ecivil<<endl;
+														 cout<<endl<<"   Direccion:  "<<arrVendedores[i].dire<<endl;
+														 cout<<endl<<"   DNI:  "<<arrVendedores[i].dni<<endl<<endl;				
+												}			
+									
+								cout<<endl<<endl<<"   Regresar al menu (1):  ";  cin>>m;
+								if (m==1)
+								{ 	system("cls"); menu(); }
+								cout<<"  ";	break;
+						
+						case 3:   	 int D; // D es de DNI jsjsjsj
+				                     cout<<endl<<endl<<"   Ingrese el DNI a buscar: ";
+				                     cin>>D;
+				                     for(int i = 0;i<cantVendedores;i++)
+									 {
+							              if(D == arrVendedores[i].dni)
+									 	  {
+								                cout<<endl<<endl<<"            LOS DATOS DEL VENDEDOR SON: "<<endl;
+												cout<<endl<<"   Nombre: "<<arrVendedores[i].nombre<<endl;
+							                    cout<<endl<<"   Apellidos: "<<arrVendedores[i].apellidos<<endl;
+							                    cout<<endl<<"   Edad: "<<arrVendedores[i].edad<<endl;
+							                    cout<<endl<<"   Genero: "<<arrVendedores[i].genero<<endl;
+							                    cout<<endl<<"   Estado Civil: "<<arrVendedores[i].Ecivil<<endl;
+							                    cout<<endl<<"   Direccion: "<<arrVendedores[i].dire<<endl;
+												cout<<endl<<"   DNI: "<<arrVendedores[i].dni <<endl;
+							                    
+												cout<<endl<<endl<<"   Regresar al menu (1):  ";  cin>>m;
+										 	 			if (m==1)
+										 	 			{ system("cls");  menu(); }
+								                 		
+							              } 
+								   	 }	break;			
+						
+						case 4:   cout<<endl<<endl<<"   EN PROCESO:  "; 
+						         				  						         
+						         	cout<<endl<<endl<<"   Regresar al menu (1):  ";  cin>>m;
+									if (m==1)
+									{ 	system("cls"); menu(); }
+						          cout<<"  ";	break;
+						
+						
+						case 5:   ultimo(); break;
+										
+									
+			}
+		
+		
+			
+	}while (op!=5);
+	
+}
+
+
+int main()
+{
+	cuerpo();
+  
+	return 0;
+}
+
+
+void ultimo() // esta es la ultima opcion
+{
+	cout<<endl<<endl;
+	cout<<"\t      *********************************  "<<endl;
+	cout<<"\t      *  GRACIAS POR USAR EL PROGRAMA *  "<<endl;
+	cout<<"\t      *********************************  "<<endl;
+	cout<<endl<<endl<<endl;
+}
+
